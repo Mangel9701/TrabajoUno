@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UIElements;
 
 public class S_PlayerMove : MonoBehaviour
 {
@@ -28,17 +29,29 @@ public class S_PlayerMove : MonoBehaviour
         CentroPantalla = new Vector2 (Screen.width / 2, Screen.height / 2);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //delta time asegura que se mueva a la velocidad por segundo y no por frame
 
         VelocidadVertical += Physics.gravity*gravedad*Time.deltaTime;
 
-        float MovimientoMouse = Input.mousePosition.x - CentroPantalla.x;
+        //float MovimientoMouse = Input.mousePosition.x - CentroPantalla.x;
 
-        if (MovimientoMouse<MovimientoMouseMin || MovimientoMouse>MovimientoMouseMin)
+        /*if (MovimientoMouse<MovimientoMouseMin || MovimientoMouse>MovimientoMouseMin)
         {
             transform.Rotate(new Vector3(0, VelocidadRotacion * MovimientoMouse, 0));
+        }*/
+
+        float MovimientoMouse = VelocidadRotacion * (Input.mousePosition.x - CentroPantalla.x);
+
+        if (MovimientoMouse <- MovimientoMouseMin || MovimientoMouse > MovimientoMouseMin)
+        {
+            transform.Rotate(new Vector3(0, MovimientoMouseMin * Mathf.Deg2Rad, 0));
+        }
+
+       else
+        {
+            transform.Rotate(new Vector3(0, MovimientoMouse * Mathf.Deg2Rad, 0));
         }
 
         //el get axis da desde 1 a -1, 1=delante 0=nada -1=atras
