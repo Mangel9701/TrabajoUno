@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: eeb7f85f58f702d47a699fca97cd9386
   - enabled: 1
-    path: Assets/Scenes/Deber_1.unity
+    path: Assets/_ESCENAS/Deber_1.unity
     guid: ded651c1aaa4531439061ebd05b99de8
   - enabled: 1
     path: Assets/Scenes/Integrantes.unity
