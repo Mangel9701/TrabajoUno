@@ -12,8 +12,12 @@ public class characterMove : MonoBehaviour
     private float mouseMovement;
     public float rotationSpeed;
     public float minMouseMovemnt;
+    public int JumpStrength;
+    private int verticalSpeed;
     private Animator anim;
     private bool isRunnning;
+    public CharacterController CharacterController;
+
     void Start()
     {
        
@@ -56,6 +60,9 @@ public class characterMove : MonoBehaviour
     
         }
 
+     
+
+     
 
          if ( Input.GetKeyUp("up") || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp("down") || Input.GetKeyUp(KeyCode.S)  ){
        

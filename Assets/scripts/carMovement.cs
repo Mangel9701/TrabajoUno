@@ -41,6 +41,7 @@ public class carMovement : MonoBehaviour
             transform.Rotate(new Vector3(0,-rotationSpeed,0));
     
         }
+
         
 
     if ( Input.GetKeyUp("up") || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp("down") || Input.GetKeyUp(KeyCode.S)  ){
