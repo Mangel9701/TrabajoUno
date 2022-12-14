@@ -13,7 +13,7 @@ public class charControlProfe : MonoBehaviour
     public Vector2 screenCenter;
     public Animator animator;
     public CharacterController characterController;
-
+    private bool wannaJump=false;
     // Start is called before the first frame update
     
     void Start()
@@ -25,18 +25,24 @@ public class charControlProfe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+ if(verticalSpeed.y<=0 && characterController.isGrounded && !wannaJump){
+            verticalSpeed.y=0;
+        }
+        
         if(Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded){
             verticalSpeed = jumpStrength * Vector3.up;
-      
+            wannaJump=true;
             animator.SetBool("jumping",true);
 
         }else if(characterController.isGrounded){
-
+            wannaJump=false;
              animator.SetBool("jumping",false);
         }
 
         verticalSpeed += Physics.gravity * gravity;
+
+       
+
         float mouseMovement = Input.mousePosition.x - screenCenter.x;
 
         if(mouseMovement <- minMouseMovement || mouseMovement > minMouseMovement){
