@@ -10,10 +10,12 @@ public class Turret : MonoBehaviour
     private GameObject player;
     public GameObject bullet;
     public Transform bulletOrigin;
+    public float shootTime = 3;
     // Start is called before the first frame update
     void Start()
     {
          player = GameObject.Find("Player");
+        Invoke("soot", shootTime);
      //  player = GameObject.FindObjectOfType<PlayerMovement>();
     }
 
@@ -23,12 +25,12 @@ public class Turret : MonoBehaviour
 
       
       rotatingSphere.LookAt(player.transform.position + new Vector3(0,14f,0));
-        shoot();
+       
     }
 
     void shoot()
     {
-
+        Invoke("soot", shootTime);
         GameObject bulletCopy = Instantiate(bullet, bulletOrigin.position, Quaternion.identity );
         bulletCopy.transform.LookAt(player.transform.position);
     }
