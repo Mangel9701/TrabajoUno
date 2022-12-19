@@ -7,7 +7,7 @@ public class charControlProfe : MonoBehaviour
 
     public bool isAlive;
     public int score;
-    public float healt, walkingSpeed, runningSpeed, gravity, rotationSpeed, minMouseMovement, jumpStrength;
+    public float healt=100, walkingSpeed, runningSpeed, gravity, rotationSpeed, minMouseMovement, jumpStrength;
     public string characterName;
     public Vector3 verticalSpeed;
     public Vector2 screenCenter;
@@ -25,7 +25,12 @@ public class charControlProfe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- if(verticalSpeed.y<=0 && characterController.isGrounded && !wannaJump){
+
+        if (healt<=0) { 
+            healt= 0;
+        }
+
+        if(verticalSpeed.y<=0 && characterController.isGrounded && !wannaJump){
             verticalSpeed.y=0;
         }
         
