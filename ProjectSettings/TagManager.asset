@@ -5,7 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - postprocess
+<<<<<<< HEAD
   - TurretPart
+=======
+  - Jugador
+  - Coin
+>>>>>>> Angel
   layers:
   - Default
   - TransparentFX
