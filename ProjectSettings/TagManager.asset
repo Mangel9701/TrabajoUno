@@ -3,19 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - postprocess
-<<<<<<< HEAD
-  - TurretPart
-=======
-  - Jugador
-  - Coin
->>>>>>> Angel
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - postprocess
+  - 
   - Water
   - UI
   - 

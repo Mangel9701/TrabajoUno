@@ -12,6 +12,14 @@ public class S_Torres : MonoBehaviour
     private GameObject CopiaBala;
 
 
+    public float shootTime = 3;
+    public AudioSource BulletAudioSource;
+    public AudioClip BulletSound;
+    private bool isNear = false;
+
+    public int activationDistance = 24;
+
+
 
     void Start()
     {
@@ -30,19 +38,52 @@ public class S_Torres : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EsferaRotadora.LookAt(Jugador.transform.position + new Vector3(0,1.4f,0));
+        if (Vector3.Distance(gameObject.transform.position, Jugador.transform.position) < activationDistance)
+        {
+            isNear = true;
+            EsferaRotadora.LookAt(Jugador.transform.position + new Vector3(0, 1.4f, 0));
+        }
+        else
+        {
+            isNear = false;
+        }
+
+        
     }
 
     private void Disparo()
     {
-        CopiaBala= Instantiate(Bala,SocketBala.position, Quaternion.identity); //quaternion.identity para obtener la rotacion perse (por defecto) de la bala
+        if (isNear)
+        {
+            CopiaBala = Instantiate(Bala, SocketBala.position, Quaternion.identity); //quaternion.identity para obtener la rotacion perse (por defecto) de la bala
+            BulletAudioSource.PlayOneShot(BulletSound);
+            CopiaBala.GetComponent<S_bala>().parentTorre = gameObject;
 
-        CopiaBala.GetComponent<S_bala>().parentTorre = gameObject;
-
-        CopiaBala.transform.LookAt(Jugador.transform.position + new Vector3(0, 1.4f, 0));
-        Invoke("Disparo", 3);
+            CopiaBala.transform.LookAt(Jugador.transform.position + new Vector3(0, 1.4f, 0));
+            Invoke("Disparo", 3);
+        }
+        
 
     }
+
+
+  /*  void Shoot()
+    {
+        Invoke("Shoot", shootTime);
+
+        if (isNear)
+        {
+            Debug.Log("is near");
+            BulletAudioSource.PlayOneShot(BulletSound);
+            GameObject bulletCopy = Instantiate(Bala, SocketBala.position, Quaternion.identity);
+            bulletCopy.GetComponent<Bullet>().parentTurret = gameObject;
+            bulletCopy.transform.rotation = SocketBala.rotation;
+
+        }
+
+
+        // bulletCopy.transform.LookAt(player.transform.position );
+    }*/
 
     /*private float Multiplicar(float PrimerNum, float SegundoNum)
     {

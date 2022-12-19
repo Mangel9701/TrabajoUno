@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move : MonoBehaviour
+public class mover : MonoBehaviour
 {
     public float speed = 10f; //Controls velocity multiplier
 

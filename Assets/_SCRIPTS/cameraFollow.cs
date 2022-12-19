@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
   public float smoothness;
     public Transform targetObject;
@@ -17,6 +17,6 @@ public class cameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         cameraPosition = targetObject.position + initalOffset;
-        transform.position = Vector3.Lerp(transform.position, cameraPosition, smoothness*Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, cameraPosition, smoothness*Time.deltaTime);
     }
 }
