@@ -8,6 +8,7 @@ public class charControlProfe : MonoBehaviour
     public bool isAlive;
     public int score;
     public float healt=100, walkingSpeed, runningSpeed, gravity, rotationSpeed, minMouseMovement, jumpStrength;
+    public float maxHealt = 100;
     public string characterName;
     public Vector3 verticalSpeed;
     public Vector2 screenCenter;
