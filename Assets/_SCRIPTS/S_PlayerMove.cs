@@ -48,6 +48,8 @@ public class S_PlayerMove : MonoBehaviour
     private void Start()
     {
         CentroPantalla = new Vector2 (Screen.width / 2, Screen.height / 2);
+
+        Load();
     }
 
     private void FixedUpdate()
@@ -187,6 +189,31 @@ public class S_PlayerMove : MonoBehaviour
             //FuenteAudio.clip = SonidoMoneda;
             //FuenteAudio.Play();
             FuenteAudio.PlayOneShot(SonidoMoneda);//esto pone play al sonido que sea que este en el source
+        }
+    }
+
+
+    void Save()
+    {
+        PlayerPrefs.SetInt("CheckpointReached", 1);
+        PlayerPrefs.SetFloat("xPos", transform.position.x);
+        PlayerPrefs.SetFloat("yPos", transform.position.y);
+        PlayerPrefs.SetFloat("zPos", transform.position.z);
+
+    }
+
+    void Load()
+    {
+
+        if (PlayerPrefs.GetInt("CheckpointReached", 0) != 0)
+        {
+
+            float x = PlayerPrefs.GetFloat("xPos");
+            float y = PlayerPrefs.GetFloat("yPos");
+            float z = PlayerPrefs.GetFloat("zPos");
+
+            transform.position = new Vector3(x, y, z);
+
         }
     }
 }
