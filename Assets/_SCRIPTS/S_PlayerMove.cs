@@ -43,15 +43,27 @@ public class S_PlayerMove : MonoBehaviour
     public Image Corazon;
     public TextMeshProUGUI TextoPuntuacion;
     public Image[] Corazones;
+    public bool isLoadingPosition = false;
 
+    private void Awake() {
+        GameManager.instance.Load();
+    }
 
     private void Start()
     {
         CentroPantalla = new Vector2 (Screen.width / 2, Screen.height / 2);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+   
+        if (Salud <=0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene("Deber_2");
+            //SceneManager.LoadScene(0); indice segun el build scene
+        }
+
         #region Movimiento
 
         VelocidadHorizontal = Input.GetAxis("Vertical") * transform.forward;
@@ -79,7 +91,7 @@ public class S_PlayerMove : MonoBehaviour
             VelocidadHorizontal  *= VelocidadCaminar;
         }
 
-        CharacterController.Move( VelocidadHorizontal + VelocidadVertical);
+        CharacterController.Move( (VelocidadHorizontal + VelocidadVertical) * Time.deltaTime);
 
         //en la animacion has exit time es que ejecute la animacion tras haber terminado la anterior
         //magnitud es la longitud del vector(velocidadH)
@@ -158,23 +170,25 @@ public class S_PlayerMove : MonoBehaviour
         {
             Salud -= dano;
         }
-        //Corazon.fillAmount = Salud / SaludLlena;
+        
+        updateFillAmount();
+    }
+
+    public void Curar(float cantidad){
+        Salud += cantidad;
+
+        if (Salud > SaludLlena) {
+            Salud = SaludLlena;
+        }
+
+        updateFillAmount();
+    }
+
+    private void updateFillAmount(){
         foreach (var item in Corazones)
         {
             item.fillAmount = Salud / SaludLlena;
         }
-
-    }
-
-    private void Update()
-    {
-        if (Salud <=0)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            //SceneManager.LoadScene("Deber_2");
-            //SceneManager.LoadScene(0); indice segun el build scene
-        }
-       
     }
 
     private void OnTriggerEnter(Collider other)

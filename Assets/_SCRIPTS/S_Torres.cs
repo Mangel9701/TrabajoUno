@@ -8,7 +8,9 @@ public class S_Torres : MonoBehaviour
     private S_PlayerMove Jugador;
     [SerializeField] private GameObject Bala;
     [SerializeField] private Transform SocketBala;
-    [SerializeField] private float VelocidadDisparo;
+    [SerializeField] private float VelocidadDisparo = 1;
+    [SerializeField] private float OffsetAttackRangeX = 1;
+    [SerializeField] private float OffsetAttackRangeZ = 1;
     private GameObject CopiaBala;
 
 
@@ -25,14 +27,14 @@ public class S_Torres : MonoBehaviour
     {
         #region Ejemplos
         //Jugador = GameObject.FindObjectOfType<S_PlayerMove>();
-        //Jugador = GameObject.FindGameObjectWithTag("Jugador").transform; ó
+        //Jugador = GameObject.FindGameObjectWithTag("Jugador").transform; ï¿½
         //Jugador = GameObject.Find("Jugador").transform;
         #endregion
 
         Jugador = GameObject.Find("Jugador").GetComponent<S_PlayerMove>();
         EsferaRotadora = this.transform;
 
-        Invoke("Disparo",VelocidadDisparo);
+        StartCoroutine("Disparo");
     }
 
     // Update is called once per frame
@@ -42,28 +44,31 @@ public class S_Torres : MonoBehaviour
         {
             isNear = true;
             EsferaRotadora.LookAt(Jugador.transform.position + new Vector3(0, 1.4f, 0));
+            Debug.DrawLine(transform.position, Jugador.transform.position, Color.red);
         }
         else
         {
             isNear = false;
+            Debug.DrawLine(transform.position, Jugador.transform.position, Color.green);
         }
 
         
     }
 
-    private void Disparo()
+    private IEnumerator Disparo()
     {
-        if (isNear)
-        {
-            CopiaBala = Instantiate(Bala, SocketBala.position, Quaternion.identity); //quaternion.identity para obtener la rotacion perse (por defecto) de la bala
-            BulletAudioSource.PlayOneShot(BulletSound);
-            CopiaBala.GetComponent<S_bala>().parentTorre = gameObject;
+        while(true) {
+            if (isNear)
+            {
+                CopiaBala = Instantiate(Bala, SocketBala.position, Quaternion.identity); //quaternion.identity para obtener la rotacion perse (por defecto) de la bala
+                BulletAudioSource.PlayOneShot(BulletSound);
+                CopiaBala.GetComponent<S_bala>().parentTorre = gameObject;
 
-            CopiaBala.transform.LookAt(Jugador.transform.position + new Vector3(0, 1.4f, 0));
-            Invoke("Disparo", 3);
+                CopiaBala.transform.LookAt(Jugador.transform.position + new Vector3(Random.Range(-OffsetAttackRangeX, OffsetAttackRangeX), 1.4f, Random.Range(-OffsetAttackRangeZ, OffsetAttackRangeZ)));
+            }
+            
+            yield return new WaitForSeconds(3f / VelocidadDisparo);
         }
-        
-
     }
 
 

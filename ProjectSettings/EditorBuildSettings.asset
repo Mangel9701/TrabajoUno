@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: eeb7f85f58f702d47a699fca97cd9386
+    path: Assets/_ESCENAS/S_Menu.unity
+    guid: 30fa50e6286ebb74190a90ff6935124b
   - enabled: 1
+    path: Assets/_ESCENAS/S_Creditos.unity
+    guid: 70f871d9b85234b4fbe45fb6eab1ba8b
+  - enabled: 1
+    path: Assets/_ESCENAS/S_Juego.unity
+    guid: 027fa6bab4dce304c8df1228361af4db
+  - enabled: 0
     path: Assets/_ESCENAS/Deber_1.unity
     guid: ded651c1aaa4531439061ebd05b99de8
-  - enabled: 1
-    path: Assets/Scenes/Integrantes.unity
-    guid: 1d79c04112b3b7f47ba64bf5a70518ca
+  - enabled: 0
+    path: Assets/_ESCENAS/Menu.unity
+    guid: eeb7f85f58f702d47a699fca97cd9386
   m_configObjects: {}
