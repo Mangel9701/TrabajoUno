@@ -21,6 +21,7 @@ public class charControlProfe : MonoBehaviour
     {
      
         screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+        Load();
     }
 
     // Update is called once per frame
@@ -65,4 +66,36 @@ public class charControlProfe : MonoBehaviour
         animator.SetFloat("speed",horizontalSpeed.magnitude);
         characterController.Move((horizontalSpeed + verticalSpeed)*Time.deltaTime);
     }
+
+
+   public void Save()
+    {
+        Debug.Log("Saving");
+        PlayerPrefs.SetInt("CheckpointReached", 1);
+        PlayerPrefs.SetFloat("xPos", transform.position.x);
+        PlayerPrefs.SetFloat("yPos", transform.position.y);
+        PlayerPrefs.SetFloat("zPos", transform.position.z);
+
+    }
+
+   public void Load()
+    {
+
+        if (PlayerPrefs.GetInt("CheckpointReached", 0) != 0)
+        {
+
+            float x = PlayerPrefs.GetFloat("xPos");
+            float y = PlayerPrefs.GetFloat("yPos");
+            float z = PlayerPrefs.GetFloat("zPos");
+
+            transform.position = new Vector3(x, y, z);
+
+        }
+
+
+
+    }
+
+
+
 }
