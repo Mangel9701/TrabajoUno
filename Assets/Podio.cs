@@ -16,13 +16,13 @@ public class Podio : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-
-        charControlProfe player = other.gameObject.GetComponent<charControlProfe>();
-        if (other.gameObject.name=="Player")
+        private void OnTriggerEnter(Collider other)
         {
-            player.Save();
+
+            charControlProfe player = other.gameObject.GetComponent<charControlProfe>();
+            if (other.gameObject.name=="Player")
+            {
+                player.Save();
+            }
         }
-    }
 }
