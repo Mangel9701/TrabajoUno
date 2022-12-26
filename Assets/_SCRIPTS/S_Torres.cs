@@ -4,40 +4,38 @@ using UnityEngine;
 
 public class S_Torres : MonoBehaviour
 {
+    [Header("Detalles")]
+    [Space]
+
     private Transform EsferaRotadora;
     private S_PlayerMove Jugador;
-    [SerializeField] private GameObject Bala;
-    [SerializeField] private Transform SocketBala;
+
     [SerializeField] private float VelocidadDisparo = 1;
     [SerializeField] private float OffsetAttackRangeX = 1;
     [SerializeField] private float OffsetAttackRangeZ = 1;
-    private GameObject CopiaBala;
-
-
     public float shootTime = 3;
-    public AudioSource BulletAudioSource;
-    public AudioClip BulletSound;
-    private bool isNear = false;
 
+    [Header("Requeridos")]
+    [Space]
+
+    [SerializeField] private AudioSource BulletAudioSource;
+    [SerializeField] private AudioClip BulletSound;
+    [SerializeField] private GameObject Bala;
+    [SerializeField] private Transform SocketBala;
+    [SerializeField] private ParticleSystem Explosion;
     public int activationDistance = 24;
 
-
+    private bool isNear = false;
+    private GameObject CopiaBala;
 
     void Start()
     {
-        #region Ejemplos
-        //Jugador = GameObject.FindObjectOfType<S_PlayerMove>();
-        //Jugador = GameObject.FindGameObjectWithTag("Jugador").transform; �
-        //Jugador = GameObject.Find("Jugador").transform;
-        #endregion
-
         Jugador = GameObject.Find("Jugador").GetComponent<S_PlayerMove>();
         EsferaRotadora = this.transform;
 
         StartCoroutine("Disparo");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Vector3.Distance(gameObject.transform.position, Jugador.transform.position) < activationDistance)
@@ -50,9 +48,7 @@ public class S_Torres : MonoBehaviour
         {
             isNear = false;
             Debug.DrawLine(transform.position, Jugador.transform.position, Color.green);
-        }
-
-        
+        }      
     }
 
     private IEnumerator Disparo()
@@ -71,28 +67,59 @@ public class S_Torres : MonoBehaviour
         }
     }
 
-
-  /*  void Shoot()
+    #region Explosion
+    public void Explotar()
     {
-        Invoke("Shoot", shootTime);
-
-        if (isNear)
+        if (Explosion!=null)
         {
-            Debug.Log("is near");
-            BulletAudioSource.PlayOneShot(BulletSound);
-            GameObject bulletCopy = Instantiate(Bala, SocketBala.position, Quaternion.identity);
-            bulletCopy.GetComponent<Bullet>().parentTurret = gameObject;
-            bulletCopy.transform.rotation = SocketBala.rotation;
-
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "RocaCayendo")
+        {
+            Explotar();
+            BulletAudioSource.PlayOneShot(BulletSound);
+        }
+    }
+
+    #endregion
 
 
-        // bulletCopy.transform.LookAt(player.transform.position );
-    }*/
+    #region Ejemplos
+    //Jugador = GameObject.FindObjectOfType<S_PlayerMove>();
+    //Jugador = GameObject.FindGameObjectWithTag("Jugador").transform; �
+    //Jugador = GameObject.Find("Jugador").transform;
+
+    /*  void Shoot()
+  {
+      Invoke("Shoot", shootTime);
+
+      if (isNear)
+      {
+          Debug.Log("is near");
+          BulletAudioSource.PlayOneShot(BulletSound);
+          GameObject bulletCopy = Instantiate(Bala, SocketBala.position, Quaternion.identity);
+          bulletCopy.GetComponent<Bullet>().parentTurret = gameObject;
+          bulletCopy.transform.rotation = SocketBala.rotation;
+
+      }
+
+
+      // bulletCopy.transform.LookAt(player.transform.position );
+  }*/
 
     /*private float Multiplicar(float PrimerNum, float SegundoNum)
     {
         PrimerNum*= SegundoNum;
         return PrimerNum;
     }*/
+
+    #endregion
+
+
 }

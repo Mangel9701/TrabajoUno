@@ -185,7 +185,7 @@ public class S_PlayerMove : MonoBehaviour
     }
 
     private void updateFillAmount(){
-        foreach (var item in Corazones)
+        foreach (Image item in Corazones)
         {
             item.fillAmount = Salud / SaludLlena;
         }
@@ -198,9 +198,9 @@ public class S_PlayerMove : MonoBehaviour
             Destroy(other.gameObject);
             Puntaje += 5;
             TextoPuntuacion.text = $"Puntuacion: {Puntaje}";
-            //FuenteAudio.clip = SonidoMoneda;
-            //FuenteAudio.Play();
             FuenteAudio.PlayOneShot(SonidoMoneda);//esto pone play al sonido que sea que este en el source
-        }
+        } 
     }
+
+    
 }
